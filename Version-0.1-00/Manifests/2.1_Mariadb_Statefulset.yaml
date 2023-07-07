@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: wordpress_mariadb
+  labels:
+    app: mariadb
+spec:
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:11
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mariadb-root-password
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mysql_user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mysql_password
+        - name: MYSQL_DATABASE
+          value: "wordpress"
+        ports:
+        - containerPort: 3306
+          name: mariadb
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/mysql/conf.d
+      volumes:
+      - name: config-volume
+        configMap:
+          name: mariadb-config
+          items:
+          - key: my.cnf
+            path: my.cnf
