@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: wordpress
-  namespace: wordpress
+  namespace: wordpressmariadb
 spec:
   rules:
   - host: wordpress.example.com

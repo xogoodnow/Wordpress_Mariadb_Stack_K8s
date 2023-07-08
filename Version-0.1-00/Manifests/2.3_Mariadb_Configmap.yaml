@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mariadb-config
-  namespace: wordpress_mariadb
+  namespace: wordpressmariadb
 data:
   my.cnf: |
     [mysqld]
