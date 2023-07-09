@@ -5,10 +5,10 @@ metadata:
   name: nginx
   namespace: wordpressmariadb
   labels:
-    app: nginx
+    webserver: nginx
 spec:
   ports:
     - port: 80
   selector:
-    app: nginx
+    webserver: nginx
   type: ClusterIP

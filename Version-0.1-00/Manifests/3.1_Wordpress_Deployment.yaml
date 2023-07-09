@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: wordpress
-        app: nginx  # Add this line
+        webserver: nginx  # Add this line
     spec:
       containers:
       - name: wordpress
