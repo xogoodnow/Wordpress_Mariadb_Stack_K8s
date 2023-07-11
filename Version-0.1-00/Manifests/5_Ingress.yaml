@@ -3,13 +3,21 @@ kind: Ingress
 metadata:
   name: wordpress
   namespace: wordpressmariadb
+  annotations:
+    cert-manager.io/cluster-issuer: prod-issuer
+    acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - wordpress.oblivionone.com
+    secretName: cafe-secret
   rules:
-  - host: wordpress.example.com
+  - host: wordpress.oblivionone.com
     http:
       paths:
-      - pathType: Prefix
-        path: "/"
+      - path: /
+        pathType: Prefix
         backend:
           service:
             name: wordpress
