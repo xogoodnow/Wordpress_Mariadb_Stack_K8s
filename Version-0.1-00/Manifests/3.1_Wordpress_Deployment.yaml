@@ -19,23 +19,40 @@ spec:
       - name: wordpress
         image: wordpress:php8.2-fpm
         env:
+
         - name: WORDPRESS_DB_HOST
-          value: "mariadb-0.mariadb:3306"
+          value: "mariadb:3306"
+
         - name: WORDPRESS_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: wordpress-secret
-              key: wordpress_db_password
+          value: wordpresspassword
+
+        - name: WORDPRESS_DB_NAME
+          value: wordpress
+
+        - name: WORDPRESS_DB_USER
+          value: wordpress
+
         ports:
         - containerPort: 9000
+        volumeMounts:                      # Add this section
+        - name: shared-data
+          mountPath: /var/www/
       - name: nginx
         image: nginx:latest
         ports:
         - containerPort: 80
-        volumeMounts:
+        volumeMounts:                      # Add this section
         - name: nginx-config-volume
           mountPath: /etc/nginx/conf.d
-      volumes:
+        - name: shared-data
+          mountPath: /var/www/
+      volumes:                                       # Add this section
       - name: nginx-config-volume
         configMap:
           name: nginx-config
+      - name: shared-data
+        hostPath:
+          # directory location on host
+          path: /path-on-host-machine
+          # this field is optional
+          type: DirectoryOrCreate
