@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: wordpress
   namespace: wordpressmariadb
@@ -19,23 +19,18 @@ spec:
       - name: wordpress
         image: wordpress:php8.2-fpm
         env:
-
         - name: WORDPRESS_DB_HOST
           value: "mariadb:3306"
-
         - name: WORDPRESS_DB_PASSWORD
           value: wordpresspassword
-
         - name: WORDPRESS_DB_NAME
           value: wordpress
-
         - name: WORDPRESS_DB_USER
           value: wordpress
-
         ports:
         - containerPort: 9000
         volumeMounts:                      # Add this section
-        - name: shared-data
+        - name: wordpressdata
           mountPath: /var/www/
       - name: nginx
         image: nginx:latest
@@ -44,15 +39,19 @@ spec:
         volumeMounts:                      # Add this section
         - name: nginx-config-volume
           mountPath: /etc/nginx/conf.d
-        - name: shared-data
+        - name: wordpressdata
           mountPath: /var/www/
       volumes:                                       # Add this section
       - name: nginx-config-volume
         configMap:
           name: nginx-config
-      - name: shared-data
-        hostPath:
-          # directory location on host
-          path: /root/wordpress
-          # this field is optional
-          type: DirectoryOrCreate
+
+  volumeClaimTemplates:
+    - metadata:
+        name: wordpressdata
+      spec:
+        storageClassName: kang-csi
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi
