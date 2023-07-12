@@ -33,7 +33,7 @@ global:
 
   leaderElection:
     # Override the namespace used for the leader election lease
-    namespace: "cert-manager"
+    namespace: "kube-system"
 
     # The duration that non-leader candidates will wait after observing a
     # leadership renewal until attempting to acquire leadership of a led but
@@ -101,7 +101,7 @@ clusterResourceNamespace: ""
 # This namespace allows you to define where the services will be installed into
 # if not set then they will use the namespace of the release
 # This is helpful when installing cert manager as a chart dependency (sub chart)
-namespace: ""
+namespace: "cert-manager"
 
 serviceAccount:
   # Specifies whether a service account should be created
