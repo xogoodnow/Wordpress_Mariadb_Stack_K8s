@@ -33,7 +33,7 @@ global:
 
   leaderElection:
     # Override the namespace used for the leader election lease
-    namespace: "kube-system"
+    namespace: "cert-manager"
 
     # The duration that non-leader candidates will wait after observing a
     # leadership renewal until attempting to acquire leadership of a led but
@@ -50,7 +50,7 @@ global:
     # renewal of a leadership.
     # retryPeriod: 15s
 
-installCRDs: false
+installCRDs: true
 
 replicaCount: 1
 
