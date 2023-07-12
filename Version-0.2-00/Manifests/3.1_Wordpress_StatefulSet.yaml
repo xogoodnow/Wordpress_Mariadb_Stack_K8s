@@ -50,7 +50,7 @@ spec:
     - metadata:
         name: wordpressdata
       spec:
-        storageClassName: kang-csi
+        storageClassName: kang-sc
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
