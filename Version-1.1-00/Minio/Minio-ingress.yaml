@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  rules:
+  - host: minio.oblivionone.com
+    http:
+      paths:
+      - backend:
+          serviceName: minio-service
+          servicePort: 9000
+        path: /
+        pathType: Prefix
