@@ -5,7 +5,7 @@ metadata:
   namespace: minio
 spec:
   serviceName: "minio"
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: minio
@@ -16,12 +16,14 @@ spec:
     spec:
       containers:
       - name: minio
-        image: minio/minio:RELEASE.2023-07-11T21-29-34Z
+        image: quay.io/minio/minio:latest
+        command:
+        - /bin/bash
+        - -c
         args:
-        - server
-        - /data
+        - minio server /data --console-address :9900
         ports:
-        - containerPort: 9000
+        - containerPort: 9900
           name: minio
         volumeMounts:
         - name: miniodata
@@ -35,6 +37,8 @@ spec:
       resources:
         requests:
           storage: 15Gi
+
+
 
 
 
