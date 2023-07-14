@@ -5,7 +5,8 @@ metadata:
   namespace: minio
 spec:
   ports:
-    - port: 9000
+    - port: 9900
   selector:
     app: minio
   type: ClusterIP
+
