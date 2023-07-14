@@ -11,7 +11,7 @@ spec:
   tls:
   - hosts:
     - minio.oblivionone.com
-    secretName: kang-ingress-secret
+    secretName: kang-ingress-secret-minio
   rules:
   - host: minio.oblivionone.com
     http:
@@ -23,6 +23,7 @@ spec:
             name: minio
             port:
               number: 9900
+
 
 
 
