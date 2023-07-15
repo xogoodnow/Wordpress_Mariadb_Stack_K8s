@@ -4,7 +4,7 @@
 
 ## Provide a name in place of kube-prometheus-stack for `app:` labels
 ##
-nameOverride: ""
+nameOverride: "kang"
 
 ## Override the deployment namespace
 ##
@@ -20,7 +20,7 @@ kubeVersionOverride: ""
 
 ## Provide a name to substitute for the full names of resources
 ##
-fullnameOverride: ""
+fullnameOverride: "kang"
 
 ## Labels to apply to all resources
 ##
@@ -176,7 +176,7 @@ global:
 
     ## Create ClusterRoles that extend the existing view, edit and admin ClusterRoles to interact with prometheus-operator CRDs
     ## Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles
-    createAggregateClusterRoles: false
+    createAggregateClusterRoles: true
     pspEnabled: false
     pspAnnotations: {}
       ## Specify pod annotations
@@ -681,14 +681,15 @@ alertmanager:
     ## Storage is the definition of how storage will be used by the Alertmanager instances.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
-    storage:
-     volumeClaimTemplate:
-       spec:
-         storageClassName: kang-sc
-         accessModes: ["ReadWriteOnce"]
-         resources:
-           requests:
-             storage: 1Gi
+    storage: {}
+#     volumeClaimTemplate:
+#       spec:
+#         storageClassName: kang-sc
+#         accessModes: ["ReadWriteOnce"]
+#         resources:
+#           requests:
+#             storage: 10Gi
+#       selector: {}
 
 
     ## The external URL the Alertmanager instances will be available under. This is necessary to generate correct URLs. This is necessary if Alertmanager is not served from root of a DNS name. string  false
@@ -1387,7 +1388,6 @@ kubeControllerManager:
     insecureSkipVerify: null
 
     # Name of the server to use when validating TLS certificate
-    serverName: null
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
@@ -1624,9 +1624,9 @@ kubeEtcd:
     scheme: https
     insecureSkipVerify: false
     serverName: "localhost"
-    caFile: "/etc/prometheus/secrets/etcd-client-cert/ca.crt"
-    certFile: "/etc/prometheus/secrets/etcd-client-cert/healthcheck-client.crt"
-    keyFile: "/etc/prometheus/secrets/etcd-client-cert/healthcheck-client.key"
+    caFile: "/etc/prometheus/secrets/etcd-client/ca.crt"
+    certFile: "/etc/prometheus/secrets/etcd-client/healthcheck-client.crt"
+    keyFile: "/etc/prometheus/secrets/etcd-client/healthcheck-client.key"
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#relabelconfig
@@ -3123,7 +3123,7 @@ prometheus:
 
     ## How long to retain metrics
     ##
-    retention: 30d
+    retention: 10d
 
     ## Maximum size of metrics
     ##
@@ -3231,12 +3231,13 @@ prometheus:
     storageSpec:
     ## Using PersistentVolumeClaim
       volumeClaimTemplate:
+#        - metadata:
+#            - name: "promvol"
         spec:
           storageClassName: kang-sc
-          accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 10Gi
+              storage: 13Gi
 
     ## Using tmpfs volume
     ##
@@ -3880,14 +3881,16 @@ thanosRuler:
     ## Storage is the definition of how storage will be used by the ThanosRuler instances.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
     ##
-    storage:
-     volumeClaimTemplate:
-       spec:
-         storageClassName: kang-sc
-         accessModes: ["ReadWriteOnce"]
-         resources:
-           requests:
-             storage: 10Gi
+    storage: {}
+#     volumeClaimTemplate:
+#       spec:
+#         storageClassName: kang-sc
+#         accessModes: ["ReadWriteOnce"]
+#         resources:
+#           requests:
+#             storage: 20Gi
+#       selector: {}
+
 
     ## AlertmanagerConfig define configuration for connecting to alertmanager.
     ## Only available with Thanos v0.10.0 and higher. Maps to the alertmanagers.config Thanos Ruler arg.
