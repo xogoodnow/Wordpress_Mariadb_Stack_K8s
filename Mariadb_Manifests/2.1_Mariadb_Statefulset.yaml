@@ -5,7 +5,10 @@ metadata:
   namespace: wordpressmariadb
   labels:
     app: mariadb
+
 spec:
+  serviceName: "mariadb-service"
+  replicas: 3
   selector:
     matchLabels:
       app: mariadb
@@ -14,55 +17,90 @@ spec:
       labels:
         app: mariadb
     spec:
+      initContainers:
+      - name: init-mariadb
+        image: mariadb
+        imagePullPolicy: Always
+        command:
+        - bash
+        - "-c"
+        - |
+          set -ex
+          echo 'Starting init-mariadb';
+          # Check config map to directory that already exists 
+          # (but must be used as a volume for main container)
+          ls /mnt/config-map
+          # Statefulset has sticky identity, number should be last
+          [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+          ordinal=${BASH_REMATCH[1]}
+          # Copy appropriate conf.d files from config-map to 
+          # mariadb-config volume (emptyDir) depending on pod number
+          if [[ $ordinal -eq 0 ]]; then
+            # This file holds SQL for connecting to primary
+            cp /mnt/config-map/primary.cnf /etc/mysql/conf.d/server-id.cnf
+            # Create the users needed for replication on primary on a volume
+            # initdb (emptyDir)
+            cp /mnt/config-map/primary.sql /docker-entrypoint-initdb.d
+          else
+            # This file holds SQL for connecting to secondary
+            cp /mnt/config-map/replica.cnf /etc/mysql/conf.d/server-id.cnf
+            # On replicas use secondary configuration on initdb volume
+            cp /mnt/config-map/secondary.sql /docker-entrypoint-initdb.d
+          fi
+          # Add an offset to avoid reserved server-id=0 value.
+          echo server-id=$((3000 + $ordinal)) >> etc/mysql/conf.d/server-id.cnf
+          ls /etc/mysql/conf.d/
+          cat /etc/mysql/conf.d/server-id.cnf
+        volumeMounts:
+          - name: mariadb-config-map
+            mountPath: /mnt/config-map
+          - name: mariadb-config
+            mountPath: /etc/mysql/conf.d/
+          - name: initdb
+            mountPath: /docker-entrypoint-initdb.d
+
+      restartPolicy: Always
       containers:
       - name: mariadb
-        image: mariadb:11
+        image: mariadb
+        ports:
+        - containerPort: 3306
+          name: mariadb-port
         env:
-        - name: MYSQL_ROOT_PASSWORD
+        # Using Secrets
+        - name: MARIADB_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mariadb-secret
               key: mariadb-root-password
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mariadb-secret
-              key: mysql_user
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mariadb-secret
-              key: mysql_password
-        - name: MYSQL_DATABASE
-          value: "wordpress"
-        ports:
-        - containerPort: 3306
-          name: mariadb
+        - name: MYSQL_INITDB_SKIP_TZINFO
+          value: "1"
+        # Mount volume from persistent volume claim
         volumeMounts:
-        - name: config-volume
-          mountPath: /etc/mysql/conf.d
-        - name: mariadbdata
+        - name: datadir
           mountPath: /var/lib/mysql/
+        - name: mariadb-config
+          mountPath: /etc/mysql/conf.d/
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
       volumes:
-      - name: config-volume
+      - name: mariadb-config-map
         configMap:
-          name: mariadb-config
-          items:
-          - key: my.cnf
-            path: my.cnf
+          name: mariadb-configmap
+          #defaultMode: 0544
+      - name: mariadb-config
+        emptyDir: {}
+      - name: initdb
+        emptyDir: {}
 
   volumeClaimTemplates:
     - metadata:
-        name: mariadbdata
+        name: datadir
       spec:
         storageClassName: kang-sc
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
             storage: 10Gi
-
-
-
-
 
 
