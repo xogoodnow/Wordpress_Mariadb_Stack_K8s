@@ -94,8 +94,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: datadir
-      namespace: wordpressmariadb
-
+      namespace: wordpressmariadb=
     spec:
       storageClassName: kang-sc
       accessModes: [ "ReadWriteOnce" ]
