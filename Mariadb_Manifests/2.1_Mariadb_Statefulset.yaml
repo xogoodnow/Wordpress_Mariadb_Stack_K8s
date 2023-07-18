@@ -1,11 +1,10 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mariadb
+  name: mariadb-sts
   namespace: wordpressmariadb
   labels:
     app: mariadb
-
 spec:
   serviceName: "mariadb-service"
   replicas: 3
@@ -58,7 +57,6 @@ spec:
             mountPath: /etc/mysql/conf.d/
           - name: initdb
             mountPath: /docker-entrypoint-initdb.d
-
       restartPolicy: Always
       containers:
       - name: mariadb
@@ -94,13 +92,13 @@ spec:
         emptyDir: {}
 
   volumeClaimTemplates:
-    - metadata:
-        name: datadir
-      spec:
-        storageClassName: kang-sc
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 10Gi
+  - metadata:
+      name: datadir
+      namespace: wordpressmariadb
 
-
+    spec:
+      storageClassName: kang-sc
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 20Gi
