@@ -25,7 +25,7 @@ data:
     # service `mariadb-service` in advance as an FQDN.
     # No need to use master_port
     CHANGE MASTER TO 
-    MASTER_HOST='mariadb-sts-0.mariadb-service.wordpressmariadb.svc.cluster.local',
+    MASTER_HOST='mariadb-sts-0.mariadb-service.default.svc.cluster.local',
     MASTER_USER='repluser',
     MASTER_PASSWORD='replsecret',
     MASTER_CONNECT_RETRY=10;
