@@ -1,4 +1,10 @@
 # cert-manager
+Recommended command to get started:
+```bash
+helm install cert-manager cert-manager/ --namespace cert-manager --create-namespace --set installCRDs=true  -f cert-manager/values.yaml 
+
+
+```
 
 cert-manager is a Kubernetes addon to automate the management and issuance of
 TLS certificates from various issuing sources.
