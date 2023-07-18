@@ -9,7 +9,7 @@ metadata:
 spec:
   ports:
   - port: 3306
-    name: mariadb
+    name: mariadb-port
   clusterIP: None
   selector:
     app: mariadb
