@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress
+  namespace: wordpressmariadb
+  annotations:
+    cert-manager.io/cluster-issuer: prod-issuer
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - wordpress.oblivionone.com
+    secretName: kang-ingress-secret
+  rules:
+  - host: wordpress.oblivionone.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wordpress
+            port:
+              number: 80
+
+
+
