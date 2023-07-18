@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mariadb
+  name: mariadb-service
   namespace: wordpressmariadb
   labels:
     app: mariadb
