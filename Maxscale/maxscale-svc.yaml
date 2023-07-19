@@ -2,6 +2,7 @@
    kind: Service
    metadata:
      name: maxscale-service
+     namespace: wordpressmariadb
    spec:
      ports:
      - port: 3306
