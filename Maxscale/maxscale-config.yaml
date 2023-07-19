@@ -8,11 +8,13 @@
        [maxscale]
        threads=auto
 
+
        [server1]
        type=server
        address=mariadb-sts-0.mariadb-service.wordpressmariadb.svc.cluster.local
        port=3306
-       protocol=MariaDBBackend
+       protocol=MariaDBBackend 
+
 
        [server2]
        type=server
@@ -20,11 +22,13 @@
        port=3306
        protocol=MariaDBBackend
 
+
        [server3]
        type=server
        address=mariadb-sts-2.mariadb-service.wordpressmariadb.svc.cluster.local
        port=3306
        protocol=MariaDBBackend
+
 
        [MariaDB-Monitor]
        type=monitor
@@ -32,7 +36,8 @@
        servers=server1,server2,server3
        user=maxscale
        password=maxscalepassword
-       monitor_interval=2000
+       monitor_interval=2000ms
+
 
        [Read-Only-Service]
        type=service
@@ -41,6 +46,7 @@
        user=maxscale
        password=maxscalepassword
        router_options=slave
+
 
        [Read-Write-Service]
        type=service
