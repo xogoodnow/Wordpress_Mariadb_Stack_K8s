@@ -1,0 +1,28 @@
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: maxscale-deployment
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: maxscale
+     template:
+       metadata:
+         labels:
+           app: maxscale
+       spec:
+         containers:
+         - name: maxscale
+           image: mariadb/maxscale
+           ports:
+           - containerPort: 3306
+             name: maxscale-port
+           volumeMounts:
+           - name: maxscale-config
+             mountPath: /etc/maxscale.cnf
+             subPath: maxscale.cnf
+         volumes:
+         - name: maxscale-config
+           configMap:
+             name: maxscale-config
