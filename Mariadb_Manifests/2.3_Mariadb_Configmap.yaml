@@ -19,6 +19,10 @@ data:
     CREATE USER 'repluser'@'%' IDENTIFIED BY 'replsecret';
     GRANT REPLICATION REPLICA ON *.* TO 'repluser'@'%';
     CREATE DATABASE primary_db;
+    CREATE USER 'maxscale'@'%' IDENTIFIED BY 'PASSWORD';
+    GRANT SHOW DATABASES, BINLOG ADMIN, READ ONLY ADMIN, RELOAD, 
+    REPLICATION MASTER ADMIN, REPLICATION SLAVE ADMIN, 
+    REPLICATION SLAVE, SLAVE MONITOR ON *.* TO 'maxscale'@'%';
 
   secondary.sql: |
     # We have to know name of sts (`mariadb-sts`) and 
