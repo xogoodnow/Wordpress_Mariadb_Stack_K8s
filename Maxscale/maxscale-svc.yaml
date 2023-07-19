@@ -1,11 +1,11 @@
-   apiVersion: v1
-   kind: Service
-   metadata:
-     name: maxscale-service
-     namespace: wordpressmariadb
-   spec:
-     ports:
-     - port: 3306
-       name: maxscale-port
-     selector:
-       app: maxscale
+ apiVersion: v1
+ kind: Service
+ metadata:
+   name: maxscale-service
+   namespace: wordpressmariadb
+ spec:
+   ports:
+   - port: 3306
+     name: maxscale-port
+   selector:
+     app: maxscale
