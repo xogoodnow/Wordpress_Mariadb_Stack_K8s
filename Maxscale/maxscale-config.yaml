@@ -10,19 +10,19 @@
 
        [server1]
        type=server
-       address=mariadb-sts-0.mariadb-service.default.svc.cluster.local
+       address=mariadb-sts-0.mariadb-service.wordpressmariadb.svc.cluster.local
        port=3306
        protocol=MariaDBBackend
 
        [server2]
        type=server
-       address=mariadb-sts-1.mariadb-service.default.svc.cluster.local
+       address=mariadb-sts-1.mariadb-service.wordpressmariadb.svc.cluster.local
        port=3306
        protocol=MariaDBBackend
 
        [server3]
        type=server
-       address=mariadb-sts-2.mariadb-service.default.svc.cluster.local
+       address=mariadb-sts-2.mariadb-service.wordpressmariadb.svc.cluster.local
        port=3306
        protocol=MariaDBBackend
 
