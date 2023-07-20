@@ -3,6 +3,8 @@
  metadata:
    name: maxscale-deployment
    namespace: wordpressmariadb
+   labels:
+     app: maxscale
  spec:
    replicas: 1
    selector:
