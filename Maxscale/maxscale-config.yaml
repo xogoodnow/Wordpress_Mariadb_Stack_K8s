@@ -30,22 +30,22 @@ data:
     type=monitor
     module=mariadbmon
     servers=server1,server2,server3
-    user=root
-    password=rootpassword
+    user=maxscale
+    password=maxscalepassword
     monitor_interval=2000ms
 
 
-    [RW]
+    [RW-service]
     type=service
     router=readwritesplit
     servers=server1,server2,server3
-    user=root
-    password=rootpassword
+    user=maxscale
+    password=maxscalepassword
     
   
   
     [RW_listener]
     type=listener
-    service=RW
+    service=RW-service
     protocol=MariaDBProtocol
     port=3306
