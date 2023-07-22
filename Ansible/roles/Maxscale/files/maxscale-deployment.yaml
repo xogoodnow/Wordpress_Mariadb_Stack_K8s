@@ -1,0 +1,31 @@
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: maxscale-deployment
+   namespace: wordpressmariadb
+   labels:
+     app: maxscale
+ spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: maxscale
+   template:
+     metadata:
+       labels:
+         app: maxscale
+     spec:
+       containers:
+       - name: maxscale
+         image: mariadb/maxscale
+         ports:
+         - containerPort: 3306
+           name: maxscale-port
+         volumeMounts:
+         - name: maxscaleconfigmap
+           mountPath: /etc/maxscale.cnf
+           subPath: maxscale.cnf
+       volumes:
+       - name: maxscaleconfigmap
+         configMap:
+           name: maxscale-config
