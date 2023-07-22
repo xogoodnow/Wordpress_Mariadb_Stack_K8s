@@ -1,0 +1,9 @@
+---
+
+- name: Create a directory for cert manager
+
+- name: Verify if helm is installed on the system
+
+- name: Install cert manager on the cluster
+
+
