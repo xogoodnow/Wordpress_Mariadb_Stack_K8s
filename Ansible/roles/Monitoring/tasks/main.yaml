@@ -1,0 +1,30 @@
+---
+
+- name: Craete a directory for monitoring
+
+
+
+
+- name: Copy the files to the directory
+
+
+
+
+- name: Make sure helm is installed on the system
+
+
+
+- name: Create the namespace for monitoring
+
+
+
+
+- name: Install the helm chart of prometheus with custom values
+
+
+
+
+- name: Create the ingress for the monitoring
+
+
+
