@@ -1,0 +1,29 @@
+---
+
+- name: Create a directory for Mariadb
+
+
+
+- name: Verify if kubectl is installed on the system
+
+
+
+- name: Create the namespace for mariadb
+
+
+
+- name: create the required SVC for mariadb
+
+
+
+- name: Create the config map for mariadb
+
+
+
+- name: Create the secret for mariadb
+
+
+
+- name: Create the statefulset for mariadb
+
+
