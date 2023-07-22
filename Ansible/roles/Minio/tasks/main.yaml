@@ -1,0 +1,13 @@
+---
+
+- name: Create a directory for Minio
+
+- name: Copy the content to the directory
+
+- name: Create the namespace for Minio
+
+- name: Create the SVC for Minio
+
+- name: Create the ingress for Minio
+
+- name: Create the statefulset of Minio
