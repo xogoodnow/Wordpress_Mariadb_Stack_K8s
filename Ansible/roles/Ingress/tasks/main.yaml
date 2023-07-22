@@ -1,0 +1,9 @@
+---
+
+- name: Create a directory for Ingress_Controller
+
+- name: Verify if helm is installed on the system
+
+- name: Install Ingress controller on the cluster
+
+
