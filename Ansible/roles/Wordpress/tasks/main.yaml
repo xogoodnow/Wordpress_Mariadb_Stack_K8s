@@ -1,0 +1,30 @@
+---
+
+- name: Create a directory for wordpress
+
+
+
+- name: Copy the files to the directory
+
+
+
+- name: Create the required namespace
+
+
+
+- name: Create the SVC for wordpress
+
+
+
+- name: Create the secretfor wordpress
+
+
+- name: Create the configmap for wordpress
+
+
+
+- name: Create the statefulset for wordpress
+  
+
+- name: Create the ingress for wordpress
+
