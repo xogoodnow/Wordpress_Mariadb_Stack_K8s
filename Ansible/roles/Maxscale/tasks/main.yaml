@@ -1,0 +1,25 @@
+---
+
+- name: Create a directory for maxscale
+
+
+
+
+- name: Copy the manifests to the remote system
+
+
+
+
+- name: Create the required namespace for maxscale
+
+
+
+
+- name: Create the SVC for maxscale
+
+
+
+
+- name: Create the deployment
+
+
