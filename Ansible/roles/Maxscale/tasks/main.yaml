@@ -1,25 +1,46 @@
 ---
-
 - name: Create a directory for maxscale
+  file:
+    path: /root/maxscale
+    mode: 0755
+    owner: root
+    group: root
+    state: directory
 
 
 
 
 - name: Copy the manifests to the remote system
-
+  copy:
+    dest: /root/maxscale/
+    src: files/
 
 
 
 - name: Create the required namespace for maxscale
+  shell:
+    cmd: kubectl apply -f /root/maxscale/maxscale-config.yaml
+  register: config_chck
+  changed_when: "'unchanged' not in config_chck.stdout"
 
 
 
 
 - name: Create the SVC for maxscale
+  shell:
+    cmd: kubectl apply -f /root/maxscale/maxscale-svc.yaml
+  register: svc_chck
+  changed_when: "'unchanged' not in svc_chck.stdout"
 
 
 
 
 - name: Create the deployment
+  shell:
+    cmd: kubectl apply -f /root/maxscale/maxscale-deployment.yaml
+  register: deployment_chck
+  changed_when: "'unchanged' not in deployment_chck.stdout"
+
+
 
 
