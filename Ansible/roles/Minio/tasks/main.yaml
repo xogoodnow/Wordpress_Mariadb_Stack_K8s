@@ -1,13 +1,53 @@
 ---
-
 - name: Create a directory for Minio
+  file:
+    path: /root/minio
+    mode: 0755
+    owner: root
+    group: root
+    state: directory
+
+
 
 - name: Copy the content to the directory
+  copy:
+    dest: /root/minio/
+    src: files/
+
+
 
 - name: Create the namespace for Minio
+  shell:
+    cmd: kubectl apply -f /root/minio/minio-namespace.yaml
+  register: namespace.chck
+  changed_when: "'unchanged' not in namespace.stdout"
+
+
 
 - name: Create the SVC for Minio
+  shell:
+    cmd: kubectl apply -f /root/minio/Minio-svc.yaml
+  register: svc_chck
+  changed_when: "'unchanged' not in svc_chck.stdout"
+
+
 
 - name: Create the ingress for Minio
+  shell:
+    cmd: kubectl apply -f /root/minio/Minio-ingress.yaml
+  register: ingress_chck
+  changed_when: "'unchanged' not in ingress_chck.stdout"
+
+
+
 
 - name: Create the statefulset of Minio
+  shell:
+    cmd: kubectl apply -f /root/minio/Minio-statefulset.yaml
+  register: statefulset_chck
+  changed_when: "'unchanged' not in statefulset_chck.stdout"
+
+
+
+
+
