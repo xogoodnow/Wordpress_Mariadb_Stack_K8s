@@ -1,29 +1,68 @@
 ---
 
 - name: Create a directory for Mariadb
+  file:
+    path: /root/mariadb
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+
+
+
+- name: Copy the files to the directory
+  copy:
+    dest: /root/mariadb/
+    src: file/
 
 
 
 - name: Verify if kubectl is installed on the system
+  shell:
+    cmd: kubectl version
+  register: kubectl_chck
+  failed_when: "'version.Info' not in kubectl_chck.stdout"
+  changed_when: false
+
+
 
 
 
 - name: Create the namespace for mariadb
+  shell:
+    cmd: kubectl apply -f /root/mariadb/1_Specific_Namespace.yaml
+  register: namespace_chck
+  changed_when: "'unchanged' not in namespace_chck.stdout"
 
 
 
 - name: create the required SVC for mariadb
+  shell:
+    cmd: kubectl apply -f /root/mariadb/2.2_Mariadb_SVC.yaml
+  register: svc_chck
+  changed_when: "'unchanged' not in svc_chck.stdout"
 
 
 
 - name: Create the config map for mariadb
+  shell:
+    cmd: kubectl apply -f /root/mariadb/2.3_Mariadb_Configmap.yaml
+  register: config_chck
+  changed_when: "'unchanged' not in config_chck.stdout"
 
 
 
 - name: Create the secret for mariadb
-
+  shell:
+    cmd: kubectl apply -f /root/mariadb/2.4_Mariadb_Secret.yaml
+  register: secret_chck
+  changed_when: "'unchanged' not in secret_chck.stdout"
 
 
 - name: Create the statefulset for mariadb
-
+  shell:
+    cmd: kubectl apply -f /root/mariadb/2.1_Mariadb_Statefulset.yaml
+  register: statefulset_chck
+  changed_when: "'unchanged' not in statefulset_chck.stdout"
 
