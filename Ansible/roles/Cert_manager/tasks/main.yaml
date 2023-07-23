@@ -8,17 +8,10 @@
     mode: 0755
     state: directory
 
-
-
-
-
 - name: Copy the files to the directory
   copy:
     dest: /root/certmanager/
     src: files/
-
-
-
 
 - name: Verify if helm is installed on the system
   shell:
@@ -31,9 +24,6 @@
   debug:
     msg: "{{ helm_check.stdout }}"
   when: helm_check.stdout is defined
-
-
-
 
 - name: Install cert manager on the cluster
   kubernetes.core.helm:
