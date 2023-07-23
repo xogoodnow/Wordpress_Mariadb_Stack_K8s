@@ -10,10 +10,14 @@ data:
     [mariadb]
     log-bin                         # enable binary logging
     log-basename=my-mariadb         # used to be independent of hostname changes (otherwise is in datadir/mysql)
-
+    gtid_strict_mode
+    log_slave_updates
   replica.cnf: |
     [mariadb]
+    log-bin                         # enable binary logging
     log-basename=my-mariadb         # used to be independent of hostname changes (otherwise is in datadir/mysql)
+    gtid_strict_mode
+    log_slave_updates
 
   primary.sql: |
     CREATE USER 'repluser'@'%' IDENTIFIED BY 'replsecret';
@@ -23,6 +27,12 @@ data:
     CREATE USER 'maxscale'@'%' IDENTIFIED BY 'maxscalepassword';
     GRANT ALL ON *.* TO 'maxscale'@'%';
     CREATE DATABASE wordpress;
+    CHANGE MASTER TO 
+    MASTER_HOST='mariadb-sts-1.mariadb-service.wordpressmariadb.svc.cluster.local',
+    MASTER_USER='repluser',
+    MASTER_PASSWORD='replsecret',
+    MASTER_CONNECT_RETRY=3;
+    
 
   secondary.sql: |
     # We have to know name of sts (`mariadb-sts`) and 
@@ -32,4 +42,4 @@ data:
     MASTER_HOST='mariadb-sts-0.mariadb-service.wordpressmariadb.svc.cluster.local',
     MASTER_USER='repluser',
     MASTER_PASSWORD='replsecret',
-    MASTER_CONNECT_RETRY=10;
+    MASTER_CONNECT_RETRY=3;
