@@ -7,12 +7,10 @@
     group: root
     state: directory
 
-
 - name: Copy the files to the directory
   copy:
     dest: /root/wordpressmariadb/
     src: files/
-
 
 - name: Create the required namespace
   shell:
@@ -20,15 +18,11 @@
   register: namespace_chck
   changed_when: "'unchanged' not in namespace_chck.stdout"
 
-
-
 - name: Create the SVC for wordpress
   shell:
     cmd: kubectl apply -f /root/wordpressmariadb/3.2_Wordpress_SVC.yaml
   register: svc_chck
   changed_when: "'unchanged' not in svc_chck.stdout"
-
-
 
 - name: Create the configmap for Nginx
   shell:
@@ -36,14 +30,11 @@
   register: config_chck
   changed_when: "'unchanged' not in config_chck.stdout"
 
-
-
 - name: Create the statefulset for wordpress
   shell:
     cmd: kubectl apply -f /root/wordpressmariadb/3.1_Wordpress_StatefulSet.yaml
   register: statefulset_chck
   changed_when: "'unchanged' not in statefulset_chck.stdout"
-
 
 
 - name: Create the ingress for wordpress
