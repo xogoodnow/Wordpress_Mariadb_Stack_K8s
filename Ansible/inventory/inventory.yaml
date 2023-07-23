@@ -13,8 +13,6 @@ all:
                     ansible_host:
                     ansible_user: root
 
-
-
                 worker-ba-1:
                     ansible_host:
                     ansible_user: root
