@@ -1,0 +1,40 @@
+---
+- name: Highly available and robust wordpress stack on k8s
+  hosts: all
+  become: true
+  tasks:
+    - name: Installing Cert Manager
+      include_role:
+        name: $pwd/roles/Cert_manager
+
+    - name: Installing ingress controller
+      include_role:
+        name: $pwd/roles/Ingress
+
+    - name: Installing Minio
+      include_role:
+        name: $pwd/roles/Minio
+
+
+    - name: Installing Wordpress
+      include_role:
+        name: $pwd/roles/Wordpress
+
+
+    - name: Installing Mariadb
+      include_role:
+        name: $pwd/roles/Mariadb
+
+
+    - name: Installing Maxscale
+      include_role:
+        name: $pwd/roles/Maxscale
+
+
+    - name: Installing Monitoring for the cluster itself
+      include_role:
+        name: $pwd/roles/Monitoring
+
+
+
+
