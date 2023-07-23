@@ -1,5 +1,4 @@
 ---
-
 - name: Create a directory for Ingress_Controller
   file:
     path: /root/ingress_controller
@@ -9,15 +8,10 @@
     state: directory
 
 
-
-
-
 - name: Copy the files to the directory
   copy:
     dest: /root/ingress_controller/
     src: files/
-
-
 
 - name: Verify if helm is installed on the system
   shell:
@@ -25,8 +19,6 @@
   register: helm_check
   failed_when: "'version.BuildInfo' not in helm_check.stdout"
   changed_when: false
-
-
 
 
 - name: Install Ingress controller on the cluster
