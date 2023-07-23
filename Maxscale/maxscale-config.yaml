@@ -30,9 +30,11 @@ data:
     type=monitor
     module=mariadbmon
     servers=server1,server2,server3
+    failcount=3
+    auto_failover=1
     user=maxscale
     password=maxscalepassword
-    monitor_interval=2000ms
+    monitor_interval=1000ms
 
 
     [RW-service]
