@@ -12,4 +12,3 @@ spec:
   selector:
     app: wordpress
   type: {{ .Values.wordpress.wordpress_service_type }}
- 
