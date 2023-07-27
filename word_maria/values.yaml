@@ -84,18 +84,39 @@ wordpress:
   #The name of cluster certificate issue
   wordpress_cluster_issuer_name: prod-issuer
 
-  #
+  #Add the class for ingress
   wordpress_ingress_class: nginx
+
+  #Please add the domain name which you want to host your wordpress on
   wordpress_domain: wordpress.oblivionone.com
+
+  #The tls secret name
   wordpress_ingress_secret_name: kang-ingress-secret
+  #The path on which you want to host your website
   wordpress_domain_path: /
+
+  #The name of wordpress SVC
   wordpress_service_name: wordpress
+
+  #The name of nginx configmap
   wordpress_nginx_configmap_name: nginx-config
+
+  #Wordpress secret name
   wordpress_secret_name: wordpress-secret
+
+  #The name of wordpress statefulset
   wordpress_statefulset_name: wordpress
+
+  #The image name of wordpress
   wordpress_images: wordpress:php8.2-fpm
+
+  #The name of PVC
   wordpress_volume_name: wordpressdata
+
+  #The size of PVC
   wordpress_volume_size: 10
+
+  #The servie type of wordpress SVC
   wordpress_service_type: ClusterIP
 
 
