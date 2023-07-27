@@ -1,3 +1,5 @@
+namespace: wordpressmariadb
+
 Storage:
   storage_class_name: kang-sc
 
@@ -17,5 +19,24 @@ mariadb:
   mariadb_master_user: repluser
   mariadb_master_password: replsecret
   mariadb_master_conn_retry: 3
+
+
+maxscale:
+  maxscale_server_protocol: MariaDBBackend
+  maxscale_monitor_module: mariadbmon
+  maxscale_fail_count: 3
+  maxscale_auto_failover: 1
+  maxscale_user: maxscale
+  maxscale_password: maxscalepassword
+  maxscale_monitor_interval: 1000
+  maxscale_router_protocol: MariaDBProtocol
+  maxscale_deployment_name: maxscale-deployment
+  maxscale_replica_count: 1
+  maxscale_configmap_name: maxscale-config
+  maxscale_service_name: maxscale-service
+
+
+
+
 
 
