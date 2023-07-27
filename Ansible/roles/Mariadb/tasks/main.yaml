@@ -10,12 +10,10 @@
 
 
 
-
 - name: Copy the files to the directory
   copy:
     dest: /root/mariadb/
-    src: file/
-
+    src: files/
 
 
 - name: Verify if kubectl is installed on the system
