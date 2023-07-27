@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
  name: {{ .Values.maxscale.maxscale_service_name }}
- namespace: {{ .Values.maxscale.maxscale_namespace }}
+ namespace: {{ .Values.namespace}}
 spec:
  ports:
  - port: 3306

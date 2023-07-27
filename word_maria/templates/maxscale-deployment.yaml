@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
  name: {{ .Values.maxscale.maxscale_deployment_name }}
- namespace:   {{ .Values.maxscale.maxscale_namespace }}
+ namespace:   {{ .Values.namespace}}
 
  labels:
    app: maxscale
