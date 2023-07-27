@@ -15,11 +15,11 @@
 
 
 
-- name: Make sure helm is installed on the system
+- name: Create the ingress for the monitoring
   shell:
-    cmd: kubectl apply -f /root/maxscale/maxscale-config.yaml
-  register: config_chck
-  changed_when: "'unchanged' not in config_chck.stdout"
+    cmd: kubectl apply -f /root/monitoring/Monitoring_ingress.yaml
+  register: ingress_chck
+  changed_when: "'unchanged' not in ingress_chck.stdout"
 
 
 
@@ -43,13 +43,6 @@
     atomic: true
     create_namespace: true
 
-
-
-- name: Create the ingress for the monitoring
-  shell:
-    cmd: kubectl apply -f /root/monitoring/Monitoring_ingress.yaml
-  register: ingress_chck
-  changed_when: "'unchanged' not in ingress_chck.stdout"
 
 
 
