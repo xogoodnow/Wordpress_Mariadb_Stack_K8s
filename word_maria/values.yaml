@@ -22,6 +22,7 @@ mariadb:
 
 
 maxscale:
+  maxscale_namespace: wordpressmariadb
   maxscale_server_protocol: MariaDBBackend
   maxscale_monitor_module: mariadbmon
   maxscale_fail_count: 3
