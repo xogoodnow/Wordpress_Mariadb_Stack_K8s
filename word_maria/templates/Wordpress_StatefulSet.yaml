@@ -20,7 +20,7 @@ spec:
         image: {{ .Values.wordpress.wordpress_images }}
         env:
         - name: WORDPRESS_DB_HOST
-          value: "maxscale:3306"  # Changed 'mariadb service' to 'maxscale service'
+          value: "{{ .Values.maxscale.maxscale_service_name }}:3306"  # Changed 'mariadb service' to 'maxscale service'
         - name: WORDPRESS_DB_PASSWORD
           value: maxscalepassword  # Changed 'wordpresspassword' to 'MaxScale password'
         - name: WORDPRESS_DB_NAME
