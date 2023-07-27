@@ -1,0 +1,13 @@
+image_name: jinjinix
+
+network:
+  ports:
+  - containerPort: 80
+
+
+service:
+  enabled: true
+
+
+port_numbers: [3306, 3307, 3308]
+

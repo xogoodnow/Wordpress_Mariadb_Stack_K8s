@@ -1,0 +1,18 @@
+{{- if .Values.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+ name: maxscale-service
+ namespace: wordpressmariadb
+spec:
+ ports:
+ {{- range .Values.port_numbers }}
+ - port: {{ . }}
+   name: portnumber_{{ . }}
+  {{ end }}
+
+
+
+ selector:
+   app: maxscale
+  {{- end }}
