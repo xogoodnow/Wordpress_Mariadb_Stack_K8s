@@ -1,13 +1,21 @@
-image_name: jinjinix
+Storage:
+  storage_class_name: kang-sc
 
-network:
-  ports:
-  - containerPort: 80
+mariadb:
+  mariadb_namespace: wordpressmariadb
+  mariadb_statefulset_name: mariadb-sts
+  mariadb_replicas: 3
+  mariadb_pvc_name: datadir
+  mariadb_service_name: mariadb-service
+  mariadb_configmap_name: mariadb-configmap
+  mariadb_secret_name: mariadb-secret
+  mariadb_root_password:
+  mariadb_mysql_user:
+  mariadb_mysql_passowrd:
+  mariadb_image: mariadb
+  mariadb_pvc_size: 20
+  mariadb_master_user: repluser
+  mariadb_master_password: replsecret
+  mariadb_master_conn_retry: 3
 
-
-service:
-  enabled: true
-
-
-port_numbers: [3306, 3307, 3308]
 
