@@ -1,8 +1,10 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: maxscale-config
-  namespace: wordpressmariadb
+  name: {{ .Values.maxscale.maxscale_configmap_name }}
+  namespace: {{ .Values.maxscale.maxscale_namespace }}
+
 data:
   maxscale.cnf: |
     [maxscale]
@@ -10,44 +12,44 @@ data:
 
     [server1]
     type=server
-    address=mariadb-sts-0.mariadb-service.wordpressmariadb.svc.cluster.local
+    address="{{ .Values.mariadb.mariadb_statefulset_name }}-0.{{ .Values.mariadb.mariadb_namespace }}.svc.cluster.local"
     port=3306
-    protocol=MariaDBBackend 
+    protocol=MariaDBBackend
 
     [server2]
     type=server
-    address=mariadb-sts-1.mariadb-service.wordpressmariadb.svc.cluster.local
+    address="{{ .Values.mariadb.mariadb_statefulset_name }}-1.{{ .Values.mariadb.mariadb_namespace }}.svc.cluster.local"
     port=3306
     protocol=MariaDBBackend
 
     [server3]
     type=server
-    address=mariadb-sts-2.mariadb-service.wordpressmariadb.svc.cluster.local
+    address="{{ .Values.mariadb.mariadb_statefulset_name }}-2.{{ .Values.mariadb.mariadb_namespace }}.svc.cluster.local"
     port=3306
-    protocol=MariaDBBackend
+    protocol={{ .Values.maxscale.maxscale_server_protocol }}
 
     [MariaDB-Monitor]
     type=monitor
-    module=mariadbmon
+    module={{ .Values.maxscale.maxscale_monitor_module }}
     servers=server1,server2,server3
-    failcount=3
-    auto_failover=1
-    user=maxscale
-    password=maxscalepassword
-    monitor_interval=1000ms
+    failcount={{ .Values.maxscale.maxscale_fail_count }}
+    auto_failover={{ .Values.maxscale.maxscale_auto_failover}}
+    user={{ .Values.maxscale.maxscale_user }}
+    password={{ .Values.maxscale.maxscale_password }}
+    monitor_interval={{ .Values.maxscale.maxscale_monitor_interval }}ms
 
 
     [RW-service]
     type=service
     router=readwritesplit
     servers=server1,server2,server3
-    user=maxscale
-    password=maxscalepassword
-    
-  
-  
+    user={{ .Values.maxscale.maxscale_user }}
+    password={{ .Values.maxscale.maxscale_password }}
+
+
+
     [RW_listener]
     type=listener
     service=RW-service
-    protocol=MariaDBProtocol
+    protocol={{ .Values.maxscale.maxscale_router_protocol }}
     port=3306
