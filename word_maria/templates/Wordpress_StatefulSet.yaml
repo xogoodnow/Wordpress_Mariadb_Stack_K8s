@@ -54,4 +54,4 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: {{ .Values.wordpress.wordpress_volume_sizel }}Gi
+            storage: {{ .Values.wordpress.wordpress_volume_size }}Gi

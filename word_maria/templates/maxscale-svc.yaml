@@ -3,7 +3,6 @@ kind: Service
 metadata:
  name: {{ .Values.maxscale.maxscale_service_name }}
  namespace: {{ .Values.maxscale.maxscale_namespace }}
-
 spec:
  ports:
  - port: 3306
