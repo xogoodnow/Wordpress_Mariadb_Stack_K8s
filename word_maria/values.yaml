@@ -77,5 +77,27 @@ maxscale:
 
 
 
+wordpress:
+  #Name of the ingres which is going to be used for the wordpress application
+  wordpress_ingress_name: wordpress
+
+  #The name of cluster certificate issue
+  wordpress_cluster_issuer_name: prod-issuer
+
+  #
+  wordpress_ingress_class: nginx
+  wordpress_domain: wordpress.oblivionone.com
+  wordpress_ingress_secret_name: kang-ingress-secret
+  wordpress_domain_path: /
+  wordpress_service_name: wordpress
+  wordpress_nginx_configmap_name: nginx-config
+  wordpress_secret_name: wordpress-secret
+  wordpress_statefulset_name: wordpress
+  wordpress_images: wordpress:php8.2-fpm
+  wordpress_volume_name: wordpressdata
+  wordpress_volume_size: 10
+  wordpress_service_type: ClusterIP
+
+
 
 
