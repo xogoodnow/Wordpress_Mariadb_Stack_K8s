@@ -1,11 +1,11 @@
 namespace: wordpressmariadb
 
 Storage:
-  storage_class_name: kang-sc
+  storage_class_name: "kang-sc"
 
 mariadb:
   #Each one of your pods will be identified by the following name {name}-0, {name}-1 ...
-  mariadb_statefulset_name: mariadb-sts
+  mariadb_statefulset_name: "mariadb-sts"
 
   #Please choose the number of replicas for mariadb
   mariadb_replicas: 3

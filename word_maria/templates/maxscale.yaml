@@ -33,7 +33,7 @@ data:
     module={{ .Values.maxscale.maxscale_monitor_module }}
     servers=server1,server2,server3
     failcount={{ .Values.maxscale.maxscale_fail_count }}
-    auto_failover={{ .Values.maxscale.maxscale_fail_count }}
+    auto_failover={{ .Values.maxscale.maxscale_auto_failover}}
     user={{ .Values.maxscale.maxscale_user }}
     password={{ .Values.maxscale.maxscale_password }}
     monitor_interval={{ .Values.maxscale.maxscale_monitor_interval }}ms

@@ -100,14 +100,14 @@ spec:
 
   volumeClaimTemplates:
   - metadata:
-      name: {{ .Values.mariadb.mariadb_pvc_name }}
+      name: "{{ .Values.mariadb.mariadb_pvc_name }}"
       namespace: {{ .Values.namespace }}
     spec:
       storageClassName: {{ .Values.Storage.storage_class_name }}
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
-          storage: {{ .Values.mariadb.pvc_size }}Gi
+          storage: {{ .Values.mariadb.mariadb_pvc_size }}Gi
 
 
 
@@ -130,9 +130,7 @@ spec:
 
 
 
-
 ---
-
 
 apiVersion: v1
 kind: ConfigMap
@@ -177,7 +175,7 @@ data:
     CHANGE MASTER TO
     MASTER_HOST="{{ .Values.mariadb.mariadb_statefulset_name }}-0.{{ .Values.namespace }}.svc.cluster.local",
     MASTER_USER="{{ .Values.mariadb.mariadb_master_user }}",
-    MASTER_PASSWORD= "{{ .Values.mariadb.mariadb_master_password }}",
+    MASTER_PASSWORD="{{ .Values.mariadb.mariadb_master_password }}",
     MASTER_CONNECT_RETRY= {{ .Values.mariadb.mariadb_master_conn_retry }};
 
 
