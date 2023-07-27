@@ -4,35 +4,73 @@ Storage:
   storage_class_name: kang-sc
 
 mariadb:
-  mariadb_namespace: wordpressmariadb
+  #Each one of your pods will be identified by the following name {name}-0, {name}-1 ...
   mariadb_statefulset_name: mariadb-sts
+
+  #Please choose the number of replicas for mariadb
   mariadb_replicas: 3
+
+  #The name of the volume which will be storing the data of mariadb on
   mariadb_pvc_name: datadir
+
+  #Name of the service
   mariadb_service_name: mariadb-service
+
+  #Name of the configmap
   mariadb_configmap_name: mariadb-configmap
+
+  #Name of the secret
   mariadb_secret_name: mariadb-secret
+
+
   mariadb_root_password:
   mariadb_mysql_user:
   mariadb_mysql_passowrd:
+
+  #The image for mariadb
   mariadb_image: mariadb
+
+  #The storage for mariadb
   mariadb_pvc_size: 20
+
+
   mariadb_master_user: repluser
   mariadb_master_password: replsecret
+
+  #The number of times to retry to connect to the master by each slave
   mariadb_master_conn_retry: 3
 
 
 maxscale:
-  maxscale_namespace: wordpressmariadb
+  #The protocol which is going to be used to connect to servers
+  #Available options are, MariaDBClient maxscaled and MariaDBBackend
   maxscale_server_protocol: MariaDBBackend
+
+  #Choose the monitoring modules
+  #The available options are, mariadbmon, clustrixmon, Columnstore
   maxscale_monitor_module: mariadbmon
+
+  #Number of times to try to reconnect to a server before considering it down
   maxscale_fail_count: 3
+
+  #To enable auto_failover set the value to 1. (0 would be for disabled)
   maxscale_auto_failover: 1
+
+
   maxscale_user: maxscale
   maxscale_password: maxscalepassword
+
+  #The number of seconds(ms) for maxscale to check on servers
   maxscale_monitor_interval: 1000
+
   maxscale_router_protocol: MariaDBProtocol
+
+  #Name of the deployment for maxscale
   maxscale_deployment_name: maxscale-deployment
+
+  #Choose the number of replicas for Maxscale
   maxscale_replica_count: 1
+
   maxscale_configmap_name: maxscale-config
   maxscale_service_name: maxscale-service
 

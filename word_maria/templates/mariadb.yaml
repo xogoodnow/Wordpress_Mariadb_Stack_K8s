@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.mariadb.mariadb_namespace }}
+  name: {{ .Values.namespace }}
 
 ---
 
@@ -9,7 +9,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ .Values.mariadb.mariadb_statefulset_name }}
-  namespace: wordpressmariadb
+  namespace: {{ .Values.namespace }}
   labels:
     app: mariadb
 spec:
@@ -101,7 +101,7 @@ spec:
   volumeClaimTemplates:
   - metadata:
       name: {{ .Values.mariadb.mariadb_pvc_name }}
-      namespace: wordpressmariadb=
+      namespace: {{ .Values.namespace }}
     spec:
       storageClassName: {{ .Values.Storage.storage_class_name }}
       accessModes: [ "ReadWriteOnce" ]
@@ -138,7 +138,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.mariadb.mariadb_configmap_name }}
-  namespace: {{ .Values.mariadb.mariadb_namespace }}
+  namespace: {{ .Values.namespace }}
 
 data:
 
@@ -164,7 +164,7 @@ data:
     GRANT ALL ON *.* TO 'maxscale'@'%';
     CREATE DATABASE wordpress;
     CHANGE MASTER TO
-    MASTER_HOST="{{ .Values.mariadb.mariadb_statefulset_name }}-1.{{ .Values.mariadb.mariadb_namespace }}.svc.cluster.local",
+    MASTER_HOST="{{ .Values.mariadb.mariadb_statefulset_name }}-1.{{ .Values.namespace }}.svc.cluster.local",
     MASTER_USER="{{ .Values.mariadb.mariadb_master_user }}",
     MASTER_PASSWORD= "{{ .Values.mariadb.mariadb_master_password }}",
     MASTER_CONNECT_RETRY= {{ .Values.mariadb.mariadb_master_conn_retry }};
@@ -175,7 +175,7 @@ data:
     # service `mariadb-service` in advance as an FQDN.
     # No need to use master_port
     CHANGE MASTER TO
-    MASTER_HOST="{{ .Values.mariadb.mariadb_statefulset_name }}-0.{{ .Values.mariadb.mariadb_namespace }}.svc.cluster.local",
+    MASTER_HOST="{{ .Values.mariadb.mariadb_statefulset_name }}-0.{{ .Values.namespace }}.svc.cluster.local",
     MASTER_USER="{{ .Values.mariadb.mariadb_master_user }}",
     MASTER_PASSWORD= "{{ .Values.mariadb.mariadb_master_password }}",
     MASTER_CONNECT_RETRY= {{ .Values.mariadb.mariadb_master_conn_retry }};
@@ -188,7 +188,7 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: {{ .Values.mariadb.mariadb_secret_name }}
-    namespace: {{ .Values.mariadb.mariadb_namespace }}
+    namespace: {{ .Values.namespace }}
 type: Opaque
 data:
   # Encoded value: echo -n 'secret'|base64
