@@ -5,35 +5,35 @@
   tasks:
     - name: Installing Cert Manager
       include_role:
-        name: $pwd/roles/Cert_manager
+        name: $PWD/roles/Cert_manager
 
     - name: Installing ingress controller
       include_role:
-        name: $pwd/roles/Ingress
+        name: $PWD/roles/Ingress
 
     - name: Installing Minio
       include_role:
-        name: $pwd/roles/Minio
+        name: $PWD/roles/Minio
 
 
     - name: Installing Wordpress
       include_role:
-        name: $pwd/roles/Wordpress
+        name: $PWD/roles/Wordpress
 
 
     - name: Installing Mariadb
       include_role:
-        name: $pwd/roles/Mariadb
+        name: $PWD/roles/Mariadb
 
 
     - name: Installing Maxscale
       include_role:
-        name: $pwd/roles/Maxscale
+        name: $PWD/roles/Maxscale
 
 
     - name: Installing Monitoring for the cluster itself
       include_role:
-        name: $pwd/roles/Monitoring
+        name: $PWD/roles/Monitoring
 
 
 
