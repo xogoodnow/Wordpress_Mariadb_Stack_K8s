@@ -25,6 +25,7 @@
     msg: "{{ helm_check.stdout }}"
   when: helm_check.stdout is defined
 
+
 - name: Install cert manager on the cluster
   kubernetes.core.helm:
     name: cert-manager
