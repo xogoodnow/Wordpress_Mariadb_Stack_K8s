@@ -12,19 +12,19 @@ data:
 
     [server1]
     type=server
-    address="{{ .Values.mariadb.mariadb_statefulset_name }}-0.{{ .Values.mariadb.mariadb_service_name }}.{{ .Values.namespace}}.svc.cluster.local"
+    address="{{ .Values.maxscale.mariadb_statefulset_name }}-0.{{ .Values.maxscale.mariadb_service_name }}.{{ .Values.namespace}}.svc.cluster.local"
     port=3306
     protocol=MariaDBBackend
 
     [server2]
     type=server
-    address="{{ .Values.mariadb.mariadb_statefulset_name }}-1.{{ .Values.mariadb.mariadb_service_name }}.{{ .Values.namespace}}.svc.cluster.local"
+    address="{{ .Values.maxscale.mariadb_statefulset_name }}-1.{{ .Values.maxscale.mariadb_service_name }}.{{ .Values.namespace}}.svc.cluster.local"
     port=3306
     protocol=MariaDBBackend
 
     [server3]
     type=server
-    address="{{ .Values.mariadb.mariadb_statefulset_name }}-2.{{ .Values.mariadb.mariadb_service_name }}.{{ .Values.namespace}}.svc.cluster.local"
+    address="{{ .Values.maxscale.mariadb_statefulset_name }}-2.{{ .Values.maxscale.mariadb_service_name }}.{{ .Values.namespace}}.svc.cluster.local"
     port=3306
     protocol={{ .Values.maxscale.maxscale_server_protocol }}
 

@@ -33,8 +33,19 @@ maxscale:
   #Choose the number of replicas for Maxscale
   maxscale_replica_count: 1
 
+  #The name of config map for maxscal
   maxscale_configmap_name: maxscale-config
+
+  #The name of service for maxscale
   maxscale_service_name: maxscale-service
+
+  #The name of mariadb serivce
+  mariadb_service_name: mariadb-service
+
+  #The name of mariadb statefulset
+  mariadb_statefulset_name: "mariadb-sts"
+
+
 
 
 
