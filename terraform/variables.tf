@@ -6,13 +6,6 @@ variable "hcloud_token" {
 }
 
 
-variable "placement_group_id" {
-  description = "the specific placement groupID"
-  type = string
-
-}
-
-
 variable "image_name" {
   description = "The image name for the server"
   type = string
