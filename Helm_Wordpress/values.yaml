@@ -45,6 +45,10 @@ wordpress:
   #The servie type of wordpress SVC
   wordpress_service_type: ClusterIP
 
+  #Maxscale service name
+  maxscale_service_name: maxscale-service
+
+
 
 
 
