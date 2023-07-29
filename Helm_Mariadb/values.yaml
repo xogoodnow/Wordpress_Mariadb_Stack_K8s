@@ -1,0 +1,45 @@
+namespace: wordpressmariadb
+
+Storage:
+  storage_class_name: "kang-sc"
+
+mariadb:
+  #Each one of your pods will be identified by the following name {name}-0, {name}-1 ...
+  mariadb_statefulset_name: "mariadb-sts"
+
+  #Please choose the number of replicas for mariadb
+  mariadb_replicas: 3
+
+  #The name of the volume which will be storing the data of mariadb on
+  mariadb_pvc_name: datadir
+
+  #Name of the service
+  mariadb_service_name: mariadb-service
+
+  #Name of the configmap
+  mariadb_configmap_name: mariadb-configmap
+
+  #Name of the secret
+  mariadb_secret_name: mariadb-secret
+
+
+  mariadb_root_password:
+  mariadb_mysql_user:
+  mariadb_mysql_passowrd:
+
+  #The image for mariadb
+  mariadb_image: mariadb
+
+  #The storage for mariadb
+  mariadb_pvc_size: 20
+
+
+  mariadb_master_user: repluser
+  mariadb_master_password: replsecret
+
+  #The number of times to retry to connect to the master by each slave
+  mariadb_master_conn_retry: 3
+
+
+
+

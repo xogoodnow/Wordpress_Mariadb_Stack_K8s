@@ -1,0 +1,43 @@
+namespace: wordpressmariadb
+
+Storage:
+  storage_class_name: "kang-sc"
+
+maxscale:
+  #The protocol which is going to be used to connect to servers
+  #Available options are, MariaDBClient maxscaled and MariaDBBackend
+  maxscale_server_protocol: MariaDBBackend
+
+  #Choose the monitoring modules
+  #The available options are, mariadbmon, clustrixmon, Columnstore
+  maxscale_monitor_module: mariadbmon
+
+  #Number of times to try to reconnect to a server before considering it down
+  maxscale_fail_count: 3
+
+  #To enable auto_failover set the value to 1. (0 would be for disabled)
+  maxscale_auto_failover: 1
+
+
+  maxscale_user: maxscale
+  maxscale_password: maxscalepassword
+
+  #The number of seconds(ms) for maxscale to check on servers
+  maxscale_monitor_interval: 1000
+
+  maxscale_router_protocol: MariaDBProtocol
+
+  #Name of the deployment for maxscale
+  maxscale_deployment_name: maxscale-deployment
+
+  #Choose the number of replicas for Maxscale
+  maxscale_replica_count: 1
+
+  maxscale_configmap_name: maxscale-config
+  maxscale_service_name: maxscale-service
+
+
+
+
+
+
