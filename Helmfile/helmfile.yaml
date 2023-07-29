@@ -1,0 +1,30 @@
+releases:
+  - name: ingress
+    namespace: ingress-controller
+    chart: $PWD/../Helm_ingress/nginx-ingress
+    values:
+      - values.yaml
+
+  - name: cert-manager
+    namespace: certmanager
+    chart: $PWD/../Helm_Cert-manager
+    values:
+      - values.yaml
+
+  - name: mariadb
+    namespace: wordpressmariadb
+    chart: $PWD/../Helm_Mariadb
+    values:
+      - values.yaml
+
+  - name: maxscale
+    namespace: wordpressmariadb
+    chart: $PWD/../Helm_Maxscale
+    values:
+      - values.yaml
+
+  - name: wordpress
+    namespace: wordpressmariadb
+    chart: $PWD/../Helm_Wordpress
+    values:
+      - values.yaml
