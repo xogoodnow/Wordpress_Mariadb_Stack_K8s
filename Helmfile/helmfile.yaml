@@ -26,3 +26,10 @@ releases:
     chart: ../Helm_Wordpress
     values:
       - ../Helm_Wordpress/values.yaml
+
+  # Maxscale
+  - name: maxscale
+    namespace: wordpressmariadb
+    chart: ../Helm_Maxscale
+    values:
+      - ../Helm_Maxscale/values.yaml
