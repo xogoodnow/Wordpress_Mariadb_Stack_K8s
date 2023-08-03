@@ -4,32 +4,32 @@ releases:
     namespace: ingress-controller
     chart: ../Helm_Ingress/nginx-ingress
     values:
-      - ../Helm_Ingress/nginx-ingress/values.yaml
+      - ../Charts/Helm_Ingress/nginx-ingress/values.yaml
 
   # Cert Manager
   - name: cert-manager
     namespace: certmanager
     chart: ../Helm_Cert-manager
     values:
-      - ../Helm_Cert-manager/values.yaml
+      - ../Charts/Helm_Cert-manager/values.yaml
 
   # MariaDB
   - name: mariadb
     namespace: wordpressmariadb
     chart: ../Helm_Mariadb
     values:
-      - ../Helm_Mariadb/values.yaml
+      - ../Charts/Helm_Mariadb/values.yaml
 
   # Wordpress
   - name: wordpress
     namespace: wordpressmariadb
     chart: ../Helm_Wordpress
     values:
-      - ../Helm_Wordpress/values.yaml
+      - ../Charts/Helm_Wordpress/values.yaml
 
   # Maxscale
   - name: maxscale
     namespace: wordpressmariadb
-    chart: ../Helm_Maxscale
+    chart: ../Charts/Helm_Maxscale
     values:
-      - ../Helm_Maxscale/values.yaml
+      - ../Charts/Helm_Maxscale/values.yaml
